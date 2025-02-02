@@ -1,17 +1,22 @@
-#include "mlx/mlx.h"
-#include <stdio.h>
+#include <so_long.h>
 
-int main(int ac, char **av)
+unsigned short  program_perror(const char *error, unsigned short status_code)
 {
-    if (ac != 2)
-    {
-        perror("(main.c:main()) -> Invalid input, please provide a map argument that it's ending with .ber extension.");
-        return (1);
-    }
+    perror(error);
+    return (status_code);
+}
 
-    program_init();
-    map_parse();
-    map_check();
-    start_loop()
+int main(int argc, char **argv)
+{
+    t_program_data *data;
+
+    if (argc != 2)
+        return (program_perror("(main.c:main()) -> Invalid input, please provide a map argument that it's ending with .ber extension.", 1));
+
+    if (program_init(data, argv))
+        return (program_perror("(main.c:main()) -> Unknown initialization error, please look up details.", 2));
+    if (map_parse(data))
+    // map_check();
+    // start_loop();
     return (0);
 }
