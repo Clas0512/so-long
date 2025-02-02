@@ -13,8 +13,9 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (program_perror("(main.c:main()) -> Invalid input, please provide a map argument that it's ending with .ber extension.", 1));
 
-    if (program_init(data, argv))
+    if (program_init(data, argv[1]))
         return (program_perror("(main.c:main()) -> Unknown initialization error, please look up details.", 2));
+    printf("--------------------------- OKAY BROOOO ---------------------------\n");
     if (map_parse(data))
     // map_check();
     // start_loop();
