@@ -9,5 +9,9 @@ int main(int ac, char **av)
         return (1);
     }
 
+    program_init();
+    map_parse();
+    map_check();
+    start_loop()
     return (0);
 }
