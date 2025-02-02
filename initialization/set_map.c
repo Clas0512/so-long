@@ -27,7 +27,7 @@ static unsigned short check_map_name(const char *map_name)
     i = ft_strlen(map_name);
     if (i <= 4)
         return (program_perror("(set_map.c:check_map_name) -> Invalid map name, please provide a valid map name. (Ex. map.ber, example.ber, valid_map.ber).", 1));
-    if (!ft_strncmp(&(map_name[i - 4]), ".ber", 4))
+    if (ft_strncmp(&(map_name[i - 4]), ".ber", 4))
         return (program_perror("(set_map.c:check_map_name) -> Invalid map name, please provide a valid map name. (Ex. map.ber, example.ber, valid_map.ber).", 1));
     return (0);
 }
@@ -43,10 +43,11 @@ static unsigned short map_line_counter(const char *map_file_name)
     if (map_file_fd < 0)
         return (program_perror("(set_map.c:set_map) -> Can't open map file. Please make sure map is exist.", 1));
     tmp = get_next_line(map_file_fd);
-    while (!tmp)
+    while (tmp)
     {
         free(tmp);
         tmp = get_next_line(map_file_fd);
+        i++;
     }
     close(map_file_fd);
     return (i);
@@ -60,11 +61,11 @@ char **set_map(char *map_file_name, t_program_data *data)
 
     check_map_name(map_file_name);
     data->map_y = map_line_counter(map_file_name);
-    
+
     map = malloc(sizeof(char *) * (data->map_y + 1));
     if (!map)
         return (NULL);
-    map[i] = NULL;
+    map[data->map_y] = NULL;
 
     map_file_fd = open(map_file_name, O_RDONLY);
     if (map_file_fd < 0)
@@ -73,10 +74,20 @@ char **set_map(char *map_file_name, t_program_data *data)
         free(map);
         return (NULL);
     }
-    *map = get_next_line(map_file_fd);
     i = 0;
-    while (map[++i])
+    map[i] = get_next_line(map_file_fd);
+    while (map[i])
+    {
+        if (ft_strchr(map[i], '\n') != -1)
+        {
+            char *tmp;
+            tmp = ft_substr(map[i], 0, ft_strchr(map[i], '\n'));
+            free(map[i]);
+            map[i] = tmp;
+        }
+        i++;
         map[i] = get_next_line(map_file_fd);
+    }
     close(map_file_fd);
     return (map);
 }
