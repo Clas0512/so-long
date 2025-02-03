@@ -8,8 +8,9 @@ GNL_SRCS = $(NAME_GNL)/get_next_line.c $(NAME_GNL)/get_next_line_utils.c
 
 CC = cc
 
-OBJ = main.c initialization/program_init.c initialization/set_map.c start_loop.c
-
+OBJ = main.c initialization/program_init.c initialization/set_map.c \
+		start_loop.c render/render_objects.c key_hooks/handle_key_hooks.c \
+		move/player_moves.c
 all: $(NAME_MLX) $(NAME_GNL) $(NAME)
 
 $(NAME): $(OBJ)

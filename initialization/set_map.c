@@ -66,7 +66,7 @@ char **set_map(char *map_file_name, t_program_data *data)
     if (!map)
         return (NULL);
     map[data->map_y] = NULL;
-
+    printf("y: %d\n", data->map_y);
     map_file_fd = open(map_file_name, O_RDONLY);
     if (map_file_fd < 0)
     {
@@ -89,6 +89,7 @@ char **set_map(char *map_file_name, t_program_data *data)
         map[i] = get_next_line(map_file_fd);
     }
     close(map_file_fd);
+
     return (map);
 }
 
