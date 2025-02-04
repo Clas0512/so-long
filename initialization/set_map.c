@@ -53,6 +53,26 @@ static unsigned short map_line_counter(const char *map_file_name)
     return (i);
 }
 
+//bu degiscek donusu error icin
+char    *delete_new_lines(char *map_line)
+{
+    char *new_line;
+    char *tmp;
+    int i;
+
+    i = 0;
+    if (ft_strchr(map_line, '\n') != -1)
+    {
+        tmp = ft_substr(map_line, 0, ft_strchr(map_line, '\n'));
+        if (!tmp)
+            return (NULL);
+        free(map_line);
+    }
+    else
+        return (map_line);
+    return (tmp);
+}
+
 char **set_map(char *map_file_name, t_program_data *data)
 {
     int     i;
@@ -66,7 +86,6 @@ char **set_map(char *map_file_name, t_program_data *data)
     if (!map)
         return (NULL);
     map[data->map_y] = NULL;
-    printf("y: %d\n", data->map_y);
     map_file_fd = open(map_file_name, O_RDONLY);
     if (map_file_fd < 0)
     {
@@ -74,22 +93,22 @@ char **set_map(char *map_file_name, t_program_data *data)
         free(map);
         return (NULL);
     }
+
     i = 0;
     map[i] = get_next_line(map_file_fd);
     while (map[i])
     {
-        if (ft_strchr(map[i], '\n') != -1)
-        {
-            char *tmp;
-            tmp = ft_substr(map[i], 0, ft_strchr(map[i], '\n'));
-            free(map[i]);
-            map[i] = tmp;
-        }
+        map[i] = delete_new_lines(map[i]);
+        // mapin acildigi yerler olabilir onlari da freeleyip cikman gerekiyor
+        if (!map[i])
+            return (NULL);
         i++;
         map[i] = get_next_line(map_file_fd);
     }
+    print_char_map(map);
+    data->map_x = ft_strlen(map[0]);
     close(map_file_fd);
-
+    // print_char_map(map);
     return (map);
 }
 

@@ -1,12 +1,13 @@
 #include <so_long.h>
 
-static void render_map(t_program_data *data)
+int render_map(t_program_data *data)
 {
     int x;
     int y;
     int new_x;
     int new_y;
 
+    // check_exited();
     x = 0;
     y = 0;
     while (y < data->map_y)
@@ -22,10 +23,38 @@ static void render_map(t_program_data *data)
         }
         y++;
     }
+    return (0);
+}
+
+void print_char_map(char **map)
+{
+    int s;
+    int j;
+
+    s = 0;
+    while (map[s])
+    {
+        j = 0;
+        while (map[s][j])
+        {
+            printf("%c", map[s][j]);
+            j++;
+        }
+        printf("\n");
+        s++;
+    }
+    printf("\n");
 }
 
 void start_loop(t_program_data *data)
 {
-    mlx_key_hook(data->mlx->win_ptr, handle_key_hooks, data);
+    mlx_new_image(data->mlx->mlx_ptr, data->map_y * 64, data->map_x * 64);
     render_map(data);
+    mlx_key_hook(data->mlx->win_ptr, handle_key_hooks, data);
+    print_char_map(data->map);
+    mlx_loop_hook(data->mlx->mlx_ptr, render_map, data);
+    // mlx_hook(arg.win, 2, 0, ft_set_win, &arg);
+    // mlx_hook(arg.win, 17, 0, ft_exit, 0);
+    mlx_loop(data->mlx->mlx_ptr);
+    return ;
 }

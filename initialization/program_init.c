@@ -58,7 +58,9 @@ void    program_init(t_program_data *data, char *map_file_name)
     data->map = set_map(map_file_name, data);
     if (!data->map)
         free_program_init(5, data);
+        printf("[!!!]  ------  DEBUG YAPIOM  ------ 11111 [!!!]\n");
     data->map_x = ft_strlen(*(data->map));
+    printf("[!!!]  ------  DEBUG YAPIOM  ------ 22222 [!!!]\n");
     if (images_init(data))
         free_program_init(5, data);
 }

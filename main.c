@@ -11,7 +11,6 @@ int main(int argc, char **argv)
     t_program_data *data;
 
     data = malloc(sizeof(t_program_data));
-    printf("looptan hemen sonra\n");
     if (!data)
         exit(31);
     // duzenlencek
@@ -25,6 +24,5 @@ int main(int argc, char **argv)
     data->mlx->win_ptr = mlx_new_window(data->mlx->mlx_ptr, size_x, size_y, "window");
     // if (map_check(data))
     start_loop(data);
-    mlx_loop(data->mlx->mlx_ptr);
     return (0);
 }
