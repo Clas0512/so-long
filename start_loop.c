@@ -1,11 +1,10 @@
-#include <so_long.h>
+#include "so_long.h"
 
 int render_map(t_program_data *data)
 {
     int x;
     int y;
-    int new_x;
-    int new_y;
+    // int new_y;
     static int counter_for_animation;
 
     // check_exited();
@@ -14,7 +13,7 @@ int render_map(t_program_data *data)
     while (y < data->map_y)
     {
         x = 0;
-        new_y = y * data->texture_px_size;
+        // new_y = y * data->texture_px_size;
         while (x < data->map_x)
         {
             // mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
@@ -60,11 +59,10 @@ void start_loop(t_program_data *data)
 {
     mlx_new_image(data->mlx->mlx_ptr, data->map_y * 64, data->map_x * 64);
     render_map(data);
-    mlx_key_hook(data->mlx->win_ptr, handle_key_hooks, data);
-    print_char_map(data->map);
+    mlx_hook(data->mlx->win_ptr, 2, 0, handle_key_hooks, data);
+    // mlx_key_hook(data->mlx->win_ptr, handle_key_hooks, data);
     mlx_loop_hook(data->mlx->mlx_ptr, render_map, data);
-    // mlx_hook(arg.win, 2, 0, ft_set_win, &arg);
-    mlx_hook(data->mlx->win_ptr, 17, 0, ft_exit, 0);
+    // mlx_hook(data->mlx->win_ptr, 17, 0, ft_exit, 0);
     mlx_loop(data->mlx->mlx_ptr);
     return ;
 }

@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 void find_player_coordinates(t_program_data *data, t_player_attr *player_attr)
 {
@@ -29,18 +29,24 @@ int handle_key_hooks(int keycode, void *param)
 {
     t_program_data *data = param;
     find_player_coordinates(data, data->image_addr->player_attr);
-    if (keycode == 100) // D
+    // if (keycode == 100) // D
+    //     move_right(data);
+    // if (keycode == 97) // A
+    //     move_left(data);
+    // if (keycode == 115) // S
+    //     move_down(data);
+    // if (keycode == 119) // W
+    //     move_up(data);
+    if (keycode == 2) // D
         move_right(data);
-    if (keycode == 97) // A
+    if (keycode == 0) // A
         move_left(data);
-    if (keycode == 115) // S
+    if (keycode == 1) // S
         move_down(data);
-    if (keycode == 119) // W
+    if (keycode == 13) // W
         move_up(data);
-    if (keycode == 65307 && end_game(data) != 1) // ESC
+    if (keycode == 53 || end_game(data) == 1) // ESC
         exit(44);
-	if (end_game(data) != 1)
-		exit(1);
     // mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
     // render_map(data);
     // printf("keycode: %d\n", keycode);

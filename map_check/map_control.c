@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 unsigned short  wall_control(t_program_data *data)
 {

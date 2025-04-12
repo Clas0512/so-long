@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 t_img	new_img(int w, int h, t_win window)
 {

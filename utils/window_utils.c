@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 t_win new_window(int w, int h, char *str)
 {

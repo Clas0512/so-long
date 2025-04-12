@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 int	map_check(t_program_data *data)
 {

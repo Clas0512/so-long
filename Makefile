@@ -1,38 +1,47 @@
 NAME = so_long
-
-NAME_MLX = mlx_linux
-
+NAME_MLX = mlx
 NAME_GNL = gnl
 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+SRCS = main.c initialization/program_init.c initialization/set_map.c \
+	start_loop.c render/render_objects.c key_hooks/handle_key_hooks.c \
+	move/player_moves.c move/end_game.c map_check/map_check.c \
+	map_check/map_control_util.c map_check/map_control.c \
+	map_check/map_shape.c utils/flood_zeroes.c
+
+OBJ = $(SRCS:.c=.o)
 GNL_SRCS = $(NAME_GNL)/get_next_line.c $(NAME_GNL)/get_next_line_utils.c
 
-CC = cc
+MLX_TAR = https://cdn.intra.42.fr/document/document/32169/minilibx_opengl.tgz
 
-OBJ = main.c initialization/program_init.c initialization/set_map.c \
-		start_loop.c render/render_objects.c key_hooks/handle_key_hooks.c \
-		move/player_moves.c
+MLX_FLAGS = -L$(NAME_MLX) -lmlx -framework OpenGL -framework AppKit
+
 all: $(NAME_MLX) $(NAME_GNL) $(NAME)
 
 $(NAME): $(OBJ)
-	mkdir -p include && cp -rf so_long.h $(NAME_GNL)/get_next_line.h include
-	@make -C $(NAME_MLX) -s
-	@$(CC) $(OBJ) $(GNL_SRCS) -s -Iinclude -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(GNL_SRCS) $(MLX_FLAGS) -o $(NAME)
 
-# %.o: %.c
-# 	@$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+%.o: %.c
+	@$(CC) $(CFLAGS) -I$(NAME_MLX) -I$(NAME_GNL) -c $< -o $@
 
 $(NAME_MLX):
-	@git clone https://github.com/42Paris/minilibx-linux.git $(NAME_MLX)
+	@echo "Downloading MiniLibX from 42..."
+	@curl -L $(MLX_TAR) -o minilibx_opengl.tgz
+	@tar -xzf minilibx_opengl.tgz
+	@mv minilibx_opengl_*/ $(NAME_MLX)
+	@rm minilibx_opengl.tgz
+	@make -C $(NAME_MLX)
 
 $(NAME_GNL):
 	@git clone https://github.com/eceakdeemir/Get_next_line.git $(NAME_GNL)
 
 clean:
-	@rm -rf $(NAME)
+	@rm -rf $(OBJ) $(NAME)
 
 fclean: clean
-	@make clean -C $(NAME_MLX) -s
-	@rm -rf include/
+	@rm -rf $(NAME_MLX) $(NAME_GNL)
 
 re: fclean all
 

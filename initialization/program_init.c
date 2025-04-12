@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 static void free_program_init(unsigned short status_code, t_program_data *data)
 {

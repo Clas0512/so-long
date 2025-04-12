@@ -1,9 +1,4 @@
-#include <so_long.h>
-
-unsigned short superior_move(t_program_data *data)
-{
-	if ()
-}
+#include "../so_long.h"
 
 void    move_right(t_program_data *data)
 {

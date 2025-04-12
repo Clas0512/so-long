@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 static void    render_floor(t_program_data *data, int x, int y)
 {
@@ -16,6 +16,7 @@ static void    render_walls(t_program_data *data, int x, int y)
 
 static void    render_player(t_program_data *data, unsigned int time_manipulation, int x, int y)
 {
+    (void)time_manipulation;
     if (data->map[y][x] == 'P')
     {
         // mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,

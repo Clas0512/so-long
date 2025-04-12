@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 static unsigned int  ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -56,11 +56,8 @@ static unsigned short map_line_counter(const char *map_file_name)
 //bu degiscek donusu error icin
 char    *delete_new_lines(char *map_line)
 {
-    char *new_line;
     char *tmp;
-    int i;
 
-    i = 0;
     if (ft_strchr(map_line, '\n') != -1)
     {
         tmp = ft_substr(map_line, 0, ft_strchr(map_line, '\n'));

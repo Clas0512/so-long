@@ -1,4 +1,4 @@
-#include <so_long.h>
+#include "../so_long.h"
 
 unsigned short	end_game(t_program_data *data)
 {

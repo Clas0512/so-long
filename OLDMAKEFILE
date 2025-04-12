@@ -1,0 +1,44 @@
+NAME = so_long
+
+NAME_MLX = mlx
+
+NAME_GNL = gnl
+
+GNL_SRCS = $(NAME_GNL)/get_next_line.c $(NAME_GNL)/get_next_line_utils.c
+
+CC = cc
+
+OBJ = main.c initialization/program_init.c initialization/set_map.c \
+		start_loop.c render/render_objects.c key_hooks/handle_key_hooks.c \
+		move/player_moves.c
+
+all: $(NAME_MLX) $(NAME_GNL) $(NAME)
+
+
+$(NAME): $(OBJ)
+	@make -C mlx/
+	@$(CC) $(OBJ) $(GNL_SRCS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+# mkdir -p include && cp -rf so_long.h $(NAME_GNL)/get_next_line.h include
+
+# %.o: %.c
+# 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+
+# @make -C $(NAME_MLX) -s
+# @$(CC) $(OBJ) $(GNL_SRCS) -s -Iinclude -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
+$(NAME_MLX):
+	@git clone https://github.com/42Paris/minilibx-linux.git $(NAME_MLX)
+
+$(NAME_GNL):
+	@git clone https://github.com/eceakdeemir/Get_next_line.git $(NAME_GNL)
+
+clean:
+	@rm -rf $(NAME)
+
+fclean: clean
+	@make clean -C $(NAME_MLX) -s
+	@rm -rf include/ gnl/ mlx_linux/ mlx/
+
+re: fclean all
+
+.PHONY: all clean fclean re

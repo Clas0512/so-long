@@ -69,11 +69,10 @@ void	        zero_to_dot(t_program_data *data, char **fake_map, int p_x, int p_y
 unsigned short  map_shape_correct(t_program_data *data); //
 // unsigned short  is_reachable(t_program_data *data, int x, int y); //
 void            flood_zeroes(t_program_data *data, char **fake_map); //
-unsigned short	control_util(char **map, char c); //
+unsigned int	control_util(char **map, char c); //
 void            free_map(char **map); //
 char            **dup_map(char **map, int y); //
 void 			find_player_coordinates(t_program_data *data, t_player_attr *player_attr);
-void			control_util_util(int count, char c);
 unsigned short	player_check(t_program_data *data);
 unsigned short	end_game(t_program_data *data);
 void			control_util_util(int count, char c);
