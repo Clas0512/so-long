@@ -1,6 +1,6 @@
 #include "../so_long.h"
 
-static void free_program_init(unsigned short status_code, t_program_data *data)
+void free_program_init(unsigned short status_code, t_program_data *data)
 {
     if (status_code > 4)
         free(data->image_addr->player_attr);
@@ -10,7 +10,7 @@ static void free_program_init(unsigned short status_code, t_program_data *data)
         free(data->mlx);
     if (status_code > 1)
         free(data);
-    printf("FREE PROGRAM INIT\n");
+    exit(31);
     // return (NULL);
 }
 
@@ -39,7 +39,8 @@ static unsigned short images_init(t_program_data *data)
     images_player_init(data);
     data->image_addr->wall_img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "textures/bricks.xpm", &(data->texture_px_size), &(data->texture_px_size));
     data->image_addr->floor_img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "textures/grass.xpm", &(data->texture_px_size), &(data->texture_px_size));
-    
+    data->image_addr->collectable_img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "textures/collectable.xpm", &(data->texture_px_size), &(data->texture_px_size));
+    data->image_addr->exit_wall = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "textures/exit.xpm", &(data->texture_px_size), &(data->texture_px_size));
 
     if (!data->image_addr->floor_img || !data->image_addr->wall_img)
         return (program_perror("(program_init.c:image_addr_init()) -> Couldn't load image_addr, please look up details.", 1));
@@ -52,6 +53,7 @@ void    program_init(t_program_data *data, char *map_file_name)
     // if (!data)
     //     return (free_program_init(1, data));
     data->mlx = malloc(sizeof(t_mlx_ptr));
+    
     if (!data->mlx)
         free_program_init(2, data);
     data->mlx->mlx_ptr = mlx_init();
@@ -61,10 +63,12 @@ void    program_init(t_program_data *data, char *map_file_name)
     data->image_addr->player_attr = malloc(sizeof(t_player_attr));
     if (!data->image_addr->player_attr)
         free_program_init(4, data);
-
     data->map = set_map(map_file_name, data);
     if (!data->map)
+    {
+        printf("sa\n");
         free_program_init(5, data);
+    }
     data->map_x = ft_strlen(*(data->map));
     if (images_init(data))
         free_program_init(5, data);

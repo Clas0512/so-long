@@ -70,23 +70,32 @@ char    *delete_new_lines(char *map_line)
     return (tmp);
 }
 
+void reverse_free(char **map, int i)
+{
+    while (i >= 0)
+        free(map[i--]);
+    free(map);
+}
+
 char **set_map(char *map_file_name, t_program_data *data)
 {
     int     i;
     char    **map;
     int     map_file_fd;
 
-    check_map_name(map_file_name);
+    if (check_map_name(map_file_name) == 1)
+        return (NULL);
     data->map_y = map_line_counter(map_file_name);
-
-    map = malloc(sizeof(char *) * (data->map_y + 1));
+    if (data->map_y < 3)
+        return (NULL);
+    map = malloc(sizeof(char *) * (data->map_y + 1)); //
     if (!map)
         return (NULL);
     map[data->map_y] = NULL;
     map_file_fd = open(map_file_name, O_RDONLY);
     if (map_file_fd < 0)
     {
-        program_perror("(set_map.c:set_map) -> Can't open map file. Please make sure map is exist.", 1);
+        program_perror("(set_map.c:set_map) -> Can't open map file. Please make sure map exist.", 1);
         free(map);
         return (NULL);
     }
@@ -98,7 +107,10 @@ char **set_map(char *map_file_name, t_program_data *data)
         map[i] = delete_new_lines(map[i]);
         // mapin acildigi yerler olabilir onlari da freeleyip cikman gerekiyor
         if (!map[i])
+        {
+            reverse_free(map, i);
             return (NULL);
+        }
         i++;
         map[i] = get_next_line(map_file_fd);
     }

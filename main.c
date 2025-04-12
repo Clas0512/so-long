@@ -15,15 +15,20 @@ int main(int argc, char **argv)
         exit(31);
     // duzenlencek
     if (argc != 2)
+    {
+        free(data);
         return (program_perror("(main.c:main()) -> Invalid input, please provide a map argument that it's ending with .ber extension.", 1));
+    }
     program_init(data, argv[1]);
     if (!data)
         return (program_perror("(main.c:main()) -> Unknown initialization error, please look up details.", 2));
-    int size_x = data->map_x * data->texture_px_size;
-    int size_y = data->map_y * data->texture_px_size;
     if (map_check(data) != 1)
+    {
+        free_program_init(5, data);
         return (0);
-    data->mlx->win_ptr = mlx_new_window(data->mlx->mlx_ptr, size_x, size_y, "window");
+    }
+    data->mlx->win_ptr = mlx_new_window(data->mlx->mlx_ptr, data->map_x * data->texture_px_size,
+        data->map_y * data->texture_px_size, "window");
     start_loop(data);
     return (0);
 }

@@ -35,13 +35,14 @@ $(NAME_MLX):
 	@make -C $(NAME_MLX)
 
 $(NAME_GNL):
-	@git clone https://github.com/eceakdeemir/Get_next_line.git $(NAME_GNL)
+	@git clone https://github.com/melihgoz/get_next_line.git $(NAME_GNL)
 
 clean:
 	@rm -rf $(OBJ) $(NAME)
 
 fclean: clean
 	@rm -rf $(NAME_MLX) $(NAME_GNL)
+	@rm -rf mlx mlx_linux gnl
 
 re: fclean all
 

@@ -14,6 +14,20 @@ static void    render_walls(t_program_data *data, int x, int y)
                         data->image_addr->wall_img, x * data->texture_px_size, y * data->texture_px_size);
 }
 
+static void    render_exit(t_program_data *data, int x, int y)
+{
+    if (data->map[y][x] == 'E')
+        mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+                        data->image_addr->exit_wall, x * data->texture_px_size, y * data->texture_px_size);
+}
+
+static void    render_collectable(t_program_data *data, int x, int y)
+{
+    if (data->map[y][x] == 'C')
+        mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+                        data->image_addr->collectable_img, x * data->texture_px_size, y * data->texture_px_size);
+}
+
 static void    render_player(t_program_data *data, unsigned int time_manipulation, int x, int y)
 {
     (void)time_manipulation;
@@ -54,4 +68,6 @@ void    render_objects(t_program_data *data, int x, int y, int counter_for_anima
     render_floor(data, x, y);
     render_walls(data, x, y);
     render_player(data, 0, x, y);
+    render_collectable(data, x, y);
+    render_exit(data, x, y);
 }

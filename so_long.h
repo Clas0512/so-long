@@ -47,6 +47,7 @@ typedef struct  s_program_data
     int             texture_px_size;
 }               t_program_data;
 
+
 int				map_check(t_program_data *data);
 int             render_map(t_program_data *data);
 int             handle_key_hooks(int keycode, void *param);
@@ -76,5 +77,7 @@ void 			find_player_coordinates(t_program_data *data, t_player_attr *player_attr
 unsigned short	player_check(t_program_data *data);
 unsigned short	end_game(t_program_data *data);
 void			control_util_util(int count, char c);
+void            free_program_init(unsigned short status_code, t_program_data *data);
+void	        change_value(t_program_data *data, char **fake_map, char change, char from);
 
 #endif

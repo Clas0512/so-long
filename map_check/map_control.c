@@ -87,11 +87,36 @@ unsigned int	control_util(char **map, char c)
 	return (count);
 }
 
+void	change_value(t_program_data *data, char **fake_map, char change, char from)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (i < data->map_y - 1)
+	{
+		j = 1;
+		while (j < data->map_x - 1)
+		{
+			if (fake_map[i][j] == from)
+				fake_map[i][j] = change;
+			j++;
+		}
+		i++;
+	}
+}
+
 unsigned short  c_control(t_program_data *data)
 {
 	char	**fake_map;
 
 	fake_map = dup_map(data->map, data->map_y);
+	if (!fake_map)
+	{
+		free_program_init(5, data);
+		return (0);
+	}
+	change_value(data, fake_map, '1', 'E');
 	if (control_util(fake_map, 'C') > 0)
 	{
 		flood_zeroes(data, fake_map);
