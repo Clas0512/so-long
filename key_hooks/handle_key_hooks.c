@@ -37,8 +37,10 @@ int handle_key_hooks(int keycode, void *param)
         move_down(data);
     if (keycode == 119) // W
         move_up(data);
-    if (keycode == 65307) // ESC
+    if (keycode == 65307 && end_game(data) != 1) // ESC
         exit(44);
+	if (end_game(data) != 1)
+		exit(1);
     // mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
     // render_map(data);
     // printf("keycode: %d\n", keycode);
