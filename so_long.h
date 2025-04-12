@@ -75,5 +75,7 @@ char            **dup_map(char **map, int y); //
 void 			find_player_coordinates(t_program_data *data, t_player_attr *player_attr);
 void			control_util_util(int count, char c);
 unsigned short	player_check(t_program_data *data);
+unsigned short	end_game(t_program_data *data);
+void			control_util_util(int count, char c);
 
 #endif

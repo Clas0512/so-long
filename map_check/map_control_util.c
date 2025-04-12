@@ -20,10 +20,10 @@ unsigned short player_check(t_program_data *data)
 {
 	int	p_count;
 
-	p_count = control_util(data->map, 'C');
+	p_count = control_util(data->map, 'P');
 	if (p_count != 1)
 	{
-		write("No more than 1 player allowed\n", 30);
+		write(1, "No more than 1 player allowed\n", 30);
 		return (0);
 	}
 	return (1);

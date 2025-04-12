@@ -64,7 +64,7 @@ unsigned short  wall_control_2(t_program_data *data)
 // 	return (1);
 // }
 
-unsigned short	control_util(char **map, char c)
+unsigned int	control_util(char **map, char c)
 {
 	int i;
 	int	j;
@@ -84,12 +84,7 @@ unsigned short	control_util(char **map, char c)
 		}
 		i++;
 	}
-	if (control_util_util(count, c) == 0)
-	{
-		write(1, "exitcok\n", 8);	
-		return (0);
-	}
-	return (0);
+	return (count);
 }
 
 unsigned short  c_control(t_program_data *data)
@@ -116,15 +111,20 @@ unsigned short  map_exit_control(t_program_data *data)
 	char	**fake_map;
 
 	fake_map = dup_map(data->map, data->map_y);
-	if (control_util(fake_map, 'E') > 0)
+	if (control_util(fake_map, 'E') == 1)
 	{
 		flood_zeroes(data, fake_map);
-		if (control_util(fake_map, 'E') > 0)
+		if (control_util(fake_map, 'E') != 0)
 		{
 			free_map(fake_map);
 			write(1, "e_cont\n", 7); //ERROR MESSAGE
 			return (0);
 		}
+	}
+	else
+	{
+		free_map(fake_map);
+		return (0);
 	}
 	free_map(fake_map);
 	return (1);

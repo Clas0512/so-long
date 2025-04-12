@@ -2,10 +2,10 @@
 
 unsigned short	end_game(t_program_data *data)
 {
-	if (data->map[data->image_addr->player_attr->position_y]
-		[data->image_addr->player_attr->position_x] == 'E')
+	if (control_util(data->map, 'E') == 0)
 	{
-		write(1, "Game finished!!\n", 16);
+		
+		write(1, "You WIN!!\n", 10);
 		return (1);
 	}
 	return (0);
