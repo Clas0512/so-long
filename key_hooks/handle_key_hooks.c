@@ -1,6 +1,6 @@
 #include <so_long.h>
 
-static void find_player_coordinates(t_program_data *data, t_player_attr *player_attr)
+void find_player_coordinates(t_program_data *data, t_player_attr *player_attr)
 {
     int i;
     int j;

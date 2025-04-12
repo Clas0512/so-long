@@ -1,0 +1,11 @@
+//eksikler
+// map control e, p, c 1 ve 0 karakterlerinin kontrolleri olacak. 
+e bitane olmak zorunda, 
+p bi tane olmak zorunda, 
+c en az 1 tane olmak zorunda, 
+1 ve 0 larda zaten duvar ve zemin.
+
+
+
+// player bütün collectible ları toplayabiliyor ve en son exitten çıkabiliyor olmalı. Floodfill yapcan
+// map control dikdörtgen falan filan köşeleri kapalı falan onları kontrol et :3

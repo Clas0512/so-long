@@ -105,7 +105,7 @@ char **set_map(char *map_file_name, t_program_data *data)
         i++;
         map[i] = get_next_line(map_file_fd);
     }
-    print_char_map(map);
+    // print_char_map(map);
     data->map_x = ft_strlen(map[0]);
     close(map_file_fd);
     // print_char_map(map);
